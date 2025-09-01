@@ -1,0 +1,105 @@
+1.Take the array as input from user Print the intermediate result after each pass ?
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Enter size of array: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    printf("Enter %d elements: ", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    int newSize = n;
+    int pass = 1;
+
+    for (int i = 0; i < newSize; i++) {
+        for (int j = i + 1; j < newSize; j++) {
+            if (arr[i] == arr[j]) {
+                for (int k = j; k < newSize - 1; k++) {
+                    arr[k] = arr[k + 1];
+                }
+                newSize--;
+                j--; 
+            }
+        }
+
+        printf("After pass %d: ", pass++);
+        for (int k = 0; k < newSize; k++) {
+            printf("%d ", arr[k]);
+        }
+        printf("\n");
+    }
+
+    printf("\nFinal array after removing duplicates:\n");
+    for (int i = 0; i < newSize; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+2.print element of array in reverse orders ?
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Enter size of array: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    printf("Enter %d elements: ", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    printf("Array elements in reverse order:\n");
+    for (int i = n - 1; i >= 0; i--) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+3.Count occurrence of element of grien array ?
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Enter size of array: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    int freq[n]; 
+    printf("Enter %d elements: ", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+        freq[i] = -1; 
+    }
+
+    for (int i = 0; i < n; i++) {
+        if (freq[i] == 0) continue; // already counted
+
+        int count = 1;
+        for (int j = i + 1; j < n; j++) {
+            if (arr[i] == arr[j]) {
+                count++;
+                freq[j] = 0;
+            }
+        }
+        freq[i] = count;
+    }
+
+    printf("\nElement occurrences:\n");
+    for (int i = 0; i < n; i++) {
+        if (freq[i] != 0) {
+            printf("%d occurs %d times\n", arr[i], freq[i]);
+        }
+    }
+
+    return 0;
+}
