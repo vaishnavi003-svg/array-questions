@@ -1,0 +1,99 @@
+1.Print string in reverse order ?
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[100];
+
+    printf("Enter a string: ");
+    scanf("%[^\n]", str);  
+
+    int len = strlen(str);
+
+    printf("String in reverse order: ");
+    for (int i = len - 1; i >= 0; i--) {
+        printf("%c", str[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+
+2.find sum of all subsets of array ?
+
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Enter size of array: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    printf("Enter %d elements: ", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    int totalSubsets = 1 << n;  
+
+    printf("\nSum of all subsets:\n");
+    for (int mask = 0; mask < totalSubsets; mask++) {
+        int sum = 0;
+        printf("Subset { ");
+        for (int j = 0; j < n; j++) {
+            if (mask & (1 << j)) {
+                sum += arr[j];
+                printf("%d ", arr[j]);
+            }
+        }
+        printf("} → Sum = %d\n", sum);
+    }
+
+    return 0;
+}
+
+
+3.find subset whose sum is equal to given element ?
+
+#include <stdio.h>
+
+void findSubsets(int arr[], int n, int target, int index, int currSum, int subset[], int subsetSize) {
+    if (currSum == target) {
+        printf("Subset: { ");
+        for (int i = 0; i < subsetSize; i++) {
+            printf("%d ", subset[i]);
+        }
+        printf("}\n");
+        return;
+    }
+    if (index == n || currSum > target) {
+        return;
+    }
+
+    subset[subsetSize] = arr[index];
+    findSubsets(arr, n, target, index + 1, currSum + arr[index], subset, subsetSize + 1);
+
+    findSubsets(arr, n, target, index + 1, currSum, subset, subsetSize);
+}
+
+int main() {
+    int n, target;
+    printf("Enter size of array: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    printf("Enter %d elements: ", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    printf("Enter target sum: ");
+    scanf("%d", &target);
+
+    int subset[n];
+    printf("\nSubsets with sum = %d:\n", target);
+    findSubsets(arr, n, target, 0, 0, subset, 0);
+
+    return 0;
+}
